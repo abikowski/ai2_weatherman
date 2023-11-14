@@ -39,6 +39,9 @@ class Forecast
     #[ORM\Column(type: Types::DECIMAL, precision: 4, scale: 3, nullable: true)]
     private ?string $overcast = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -136,6 +139,18 @@ class Forecast
     public function setOvercast(?string $overcast): static
     {
         $this->overcast = $overcast;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): static
+    {
+        $this->date = $date;
 
         return $this;
     }
