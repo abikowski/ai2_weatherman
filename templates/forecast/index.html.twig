@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Forecast index{% endblock %}
+
+{% block body %}
+    <h1>Forecast index</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Temperature</th>
+                        <th>Humidity</th>
+                        <th>Wind_dir</th>
+                        <th>Wind_spd</th>
+                        <th>Time</th>
+                        <th>Timespan</th>
+                        <th>Overcast</th>
+                        <th>Date</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for forecast in forecasts %}
+                        <tr>
+                            <td>{{ forecast.id }}</td>
+                            <td>{{ forecast.temperature }}</td>
+                            <td>{{ forecast.humidity }}</td>
+                            <td>{{ forecast.windDir }}</td>
+                            <td>{{ forecast.windSpd }}</td>
+                            <td>{{ forecast.time ? forecast.time|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ forecast.timespan ? forecast.timespan|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ forecast.overcast }}</td>
+                            <td>{{ forecast.date ? forecast.date|date('Y-m-d') : '' }}</td>
+                            <td>
+                                <a href="{{ path('app_forecast_show', {'id': forecast.id}) }}">show</a>
+                                <a href="{{ path('app_forecast_edit', {'id': forecast.id}) }}">edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="10">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <a href="{{ path('app_forecast_new') }}">Create new</a>
+    <a href="{{ path('app_location_index') }}">To locations</a>
+{% endblock %}
