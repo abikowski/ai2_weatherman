@@ -52,6 +52,12 @@ class Forecast
         return $this->temperature;
     }
 
+    public function getFahrenheit(): float
+    {
+        $res = ($this->getTemperature() * (9/5)) + 32;
+        return number_format($res, 2);
+    }
+
     public function setTemperature(string $temperature): static
     {
         $this->temperature = $temperature;
@@ -147,6 +153,7 @@ class Forecast
     {
         return $this->date;
     }
+
 
     public function setDate(\DateTimeInterface $date): static
     {
