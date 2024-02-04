@@ -35,8 +35,12 @@
                             <td>{{ forecast.overcast }}</td>
                             <td>{{ forecast.date ? forecast.date|date('Y-m-d') : '' }}</td>
                             <td>
-                                <a href="{{ path('app_forecast_show', {'id': forecast.id}) }}">show</a>
-                                <a href="{{ path('app_forecast_edit', {'id': forecast.id}) }}">edit</a>
+                                {% if is_granted('ROLE_FORECAST_SHOW') %}
+                                    <a href="{{ path('app_forecast_show', {'id': forecast.id}) }}">show</a>
+                                {% endif %}
+                                {% if is_granted('ROLE_FORECAST_EDIT') %}
+                                    <a href="{{ path('app_forecast_edit', {'id': forecast.id}) }}">edit</a>
+                                {% endif %}
                             </td>
                         </tr>
                     {% else %}
@@ -50,7 +54,11 @@
         </div>
     </div>
 
+    {% if is_granted('ROLE_FORECAST_NEW') %}
+        <a href="{{ path('app_forecast_new') }}">Create new</a>
+    {% endif %}
+    {% if is_granted('ROLE_LOCATION_INDEX') %}
+        <a href="{{ path('app_location_index') }}">To locations</a>
+    {% endif %}
 
-    <a href="{{ path('app_forecast_new') }}">Create new</a>
-    <a href="{{ path('app_location_index') }}">To locations</a>
 {% endblock %}
